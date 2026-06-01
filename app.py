@@ -3,7 +3,7 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import random
-from transformers import pipeline
+#from transformers import pipeline
 import os
 from dotenv import load_dotenv
 from datetime import datetime
@@ -103,11 +103,11 @@ with app.app_context():
     db.create_all()
 
 # ---- Hugging Face pipeline ----
-emotion_analyzer = pipeline(
+"""emotion_analyzer = pipeline(
     "text-classification",
     model="nateraw/bert-base-uncased-emotion",
     return_all_scores=True
-)
+)"""
 
 # ---- Conversation memory ----
 user_context = {}  # stores previous messages per user
@@ -347,7 +347,7 @@ def chat():
     user_context[username].append(message)
 
     # --- Detect emotion ---
-    emotion = detect_emotion_keywords(message) or detect_emotion_hf(message) or "neutral"
+    emotion = detect_emotion_keywords(message) or "neutral"
 
     # --- Generate empathetic reply ---
     replies = {
